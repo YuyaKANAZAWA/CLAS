@@ -1,0 +1,39 @@
+﻿* {
+    /* 初期化 */
+    margin: 0px;
+    padding: 0px;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+    font-size: 14px;
+}
+
+
+
+#my_wrapper {
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    /*width: 100%;*/
+    /*margin: 0 auto;!* 幅固定（700px）でセンタリングします。*!*/
+}
+
+#my_MainPlotArea {
+    -webkit-flex: 1;
+    flex: 1;
+    margin: 20px;
+    /*float: left;*/
+    /*width: 550px;     !* floatの width 指定は必須です。*!*/
+}
+
+
+.my_MainPlotArea {
+    -webkit-flex: 1;
+    flex: 1;
+    margin: 20px;
+}

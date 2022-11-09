@@ -1,0 +1,68 @@
+﻿@using static GrToolBox.Common.Constants
+
+<div>
+    <Card Size="small" Title="@Title" Style="width: 1000px">
+        <Extra>
+            <Space Size="@($"{0.0}")">
+                @if (DispTagGps){ <Tag Color="blue">GPS</Tag> }
+                @if (DispTagGlo){ <Tag Color="hotpink">GLO</Tag> }
+                @if (DispTagGal){ <Tag Color="purple">GAL</Tag> }
+                @if (DispTagQzs){ <Tag Color="red">QZS</Tag> }
+                @if (DispTagBds){ <Tag Color="cyan">BDS</Tag> }
+                @if (DispTagIrn){ <Tag Color="green">IRN</Tag> }
+                @if (DispTagSbs){ <Tag Color="gold">SBS</Tag> }
+            </Space>
+        </Extra>
+        <Body>
+            @foreach(var data in DispData)
+            {
+                <div class="boxContainer_signals">
+                    <div class="box1_signals"><Text Strong>@data.Name: </Text></div>
+                    <div class="box2_signals">@data.Description</div>
+                    <div class="box3_signals">Phase: </div>
+                </div>
+                <div class="boxDivider"></div>
+            }
+
+
+@*
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GPS: </Text></div>
+                <div class="box1">@GpsObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GLO: </Text></div>
+                <div class="box1">@GloObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GAL: </Text></div>
+                <div class="box1">@GalObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>QZS: </Text></div>
+                <div class="box1">@QzsObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>BDS: </Text></div>
+                <div class="box1">@BdsObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>IRN: </Text></div>
+                <div class="box1">@IrnObs</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>SBS: </Text></div>
+                <div class="box1">@SbsObs</div>
+            </div>
+*@
+
+        </Body>
+    </Card>
+</div>
+

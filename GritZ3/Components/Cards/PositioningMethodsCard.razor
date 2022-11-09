@@ -1,0 +1,40 @@
+﻿<div>
+    <Card Size="small" Title="@Title" Style="width: 320px">
+        <Extra>
+            <Tag Color="blue-inverse">LS</Tag>
+            @if(DispKfTag){ <Tag Color="purple-inverse">KF</Tag> }            
+        </Extra>
+        <Body>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Least Squares: </Text></div>
+                <div class="box1">ON</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Kalman Filter: </Text></div>
+                <div class="box1">@KfOnOff</div>
+            </div>
+        </Body>
+    </Card>
+</div>
+
+
+<style>
+    .box1{
+        float: left;
+        width: 150px;
+    }
+    .boxContainer{
+        overflow: hidden;
+        width: 300px;
+    }
+    .boxDivider{
+        width: 100%;
+        height: 1px;
+        background-color: palegoldenrod;
+    }
+</style>
+
+
+
+

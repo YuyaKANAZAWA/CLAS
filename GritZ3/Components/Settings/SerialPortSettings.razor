@@ -1,0 +1,121 @@
+﻿@using GrToolBox.Communication
+@using static GritZ3.Components.Settings.DrawerDataSourceSettings
+
+            <Tooltip Placement="Placement.TopLeft" Title="@("Refresh Port List")">
+                <Button Icon="@IconType.Outline.Reload" Size="@ButtonSize.Small" OnClick="ReloadSerialList">Refresh Port List</Button>
+            </Tooltip>
+            <br />
+            <br />
+
+            <Text Strong>Serial port name</Text>
+            @if(portNames != null && portNames.Count > 0)
+            {
+                <SimpleSelect DefaultValue="NotSet" FullWidth=true Value="@NowStatus.SerialPortName" OnSelectedItemChanged="GetPortName">
+                    <SelectOptions>
+                        <SimpleSelectOption  Value="NotSet" Label=""></SimpleSelectOption>
+                        @foreach(var port in portNames)
+                        {
+                            string str = port.Name;
+                            @if(port.Caption != "unknown")
+                            {
+                                str = port.Caption;
+                            }
+                            <SimpleSelectOption  Value=@port.Name Label=@str></SimpleSelectOption>
+                        }
+                    </SelectOptions>
+                </SimpleSelect>
+            }
+            else
+            {
+                <SimpleSelect DefaultValue="noports" Disabled FullWidth=true>
+                    <SelectOptions>
+                        <SimpleSelectOption Value="noports" Label="No serial port detected"></SimpleSelectOption>
+                    </SelectOptions>
+                </SimpleSelect>
+            }
+            <Text Strong>Speed (bit/sec)</Text>
+            <SimpleSelect DefaultValue="115200" Label="bit/sec" Value="@NowStatus.SerialBaudRate" OnSelectedItemChanged="GetBaudRate">
+                <SelectOptions>
+                    <SimpleSelectOption Value="9600" Label="9,600"></SimpleSelectOption>
+                    <SimpleSelectOption Value="14400" Label="14,400"></SimpleSelectOption>
+                    <SimpleSelectOption Value="19200" Label="19,200"></SimpleSelectOption>
+                    <SimpleSelectOption Value="28800" Label="28,800"></SimpleSelectOption>
+                    <SimpleSelectOption Value="38400" Label="38,400"></SimpleSelectOption>
+                    <SimpleSelectOption Value="56000" Label="56,000"></SimpleSelectOption>
+                    <SimpleSelectOption Value="57600" Label="57,600"></SimpleSelectOption>
+                    <SimpleSelectOption Value="115200" Label="115,200"></SimpleSelectOption>
+                    <SimpleSelectOption Value="128000" Label="128,000"></SimpleSelectOption>
+                    <SimpleSelectOption Value="230400" Label="230,400"></SimpleSelectOption>
+                    <SimpleSelectOption Value="256000" Label="256,000"></SimpleSelectOption>
+                    <SimpleSelectOption Value="460800" Label="460,800"></SimpleSelectOption>
+                    <SimpleSelectOption Value="512000" Label="512,000"></SimpleSelectOption>
+                    <SimpleSelectOption Value="921600" Label="921,600"></SimpleSelectOption> 
+                </SelectOptions>
+            </SimpleSelect>
+@**@
+            <Text Strong>Data bits</Text>
+            <SimpleSelect DefaultValue="8" Label="Data bits" Value="@NowStatus.SerialDataBits" OnSelectedItemChanged="GetDataBits">
+                <SelectOptions>
+                    <SimpleSelectOption Value="5" Label="5"></SimpleSelectOption>
+                    <SimpleSelectOption Value="6" Label="6"></SimpleSelectOption>
+                    <SimpleSelectOption Value="7" Label="7"></SimpleSelectOption>
+                    <SimpleSelectOption Value="8" Label="8"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+            @**@
+            <Text Strong>Parity</Text>
+            <SimpleSelect DefaultValue="None" Label="Parity" Value="@NowStatus.SerialParity" OnSelectedItemChanged="GetParity">
+                <SelectOptions>
+                    <SimpleSelectOption Value="None" Label="None"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Odd" Label="Odd"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Even" Label="Even"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Mark" Label="Mark"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Space" Label="Space"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+            @**@
+            <Text Strong>Stop bit</Text>
+            <SimpleSelect DefaultValue="One" Label="Stop bit" Value="@NowStatus.SerialStopBit" OnSelectedItemChanged="GetStopBit">
+                <SelectOptions>
+                    <SimpleSelectOption Value="None" Label="None"></SimpleSelectOption>
+                    <SimpleSelectOption Value="One" Label="1"></SimpleSelectOption>
+                    <SimpleSelectOption Value="OnePointFive" Label="1.5"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Two" Label="2"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+            @**@
+            <Text Strong>Flow control</Text>
+            <SimpleSelect DefaultValue="None" Label="Flow control" Value="@NowStatus.SerialFlowControl" OnSelectedItemChanged="GetFlowControl">
+                <SelectOptions>
+                    <SimpleSelectOption Value="None" Label="None"></SimpleSelectOption>
+                    <SimpleSelectOption Value="RTS/CTS" Label="RTS/CTS"></SimpleSelectOption>
+                    <SimpleSelectOption Value="XON/XOFF" Label="XON/XOFF"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+
+@code {
+    [Parameter]
+    public DataSourceStatus NowStatus { get; set; }
+
+
+    private List<SerialPortName>? portNames;
+
+    protected override async Task OnInitializedAsync()
+    {
+        portNames = await Task.Run(() => SerialPortUtilities.SerialPortSearch());
+    }
+
+    protected async Task ReloadSerialList()
+    {
+        portNames = await Task.Run(() => SerialPortUtilities.SerialPortSearch());
+    }
+
+
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //    await Task.Run(()=> str += ( ", " + NowStatus.SerialBaudRate));
+    //    //StateHasChanged();
+    //}
+
+
+}

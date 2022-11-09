@@ -1,0 +1,65 @@
+﻿<div>
+    <Card Size="small" Title="Control" Style="width: 320px; background-color:snow;" >
+        <Body>
+            <div class="boxContainer_single">
+                <div class="box1_single">
+                    <Button Type="@ButtonType.Primary" Disabled="@param.StartButtonDisabled" OnClick="OnClickStartButton">Start</Button>
+                    <Button Type="@ButtonType.Default" Disabled="@param.StopButtonDisabled" OnClick="OnClickStopButton">Stop</Button>
+                </div>
+                <div class="box1_single">
+                    @foreach(var d in param.BadgeData)
+                    {
+                        <Badge Status="@d.Status" Text="@d.Description" />
+                    }
+                </div>
+            </div>
+            <div class="boxContainer_single" style="margin:10px 0px;">
+                <div class="box1_single">
+                    Recording
+                    <Switch Size="small" Checked="@param.RecordingSwitch" Disabled="@param.RecordingSwitchDisabled" OnClick="OnClickRecordingSwitch"/>
+                </div>
+                <div class="box1_single">
+                    <a href='record.txt' download='record.nmea'>@param.RecordingFileInfo</a>
+                </div>
+            </div>
+            <div class="boxContainer_single" style="margin:10px 0px 0px 0px;">
+                <div class="box1_single">
+                    <Dropdown Trigger="@(new Trigger[] { Trigger.Click })">
+                        <Overlay>
+                            <Menu>
+                                <MenuItem>
+                                    <Button Type="@ButtonType.Text" Size="@ButtonSize.Small" OnClick="OnClickKMLButton">kml file</Button>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Button Type="@ButtonType.Text" Size="@ButtonSize.Small" OnClick="OnClickGPXButton">gpx file</Button>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Button Type="@ButtonType.Text" Size="@ButtonSize.Small" OnClick="OnClickCSVButton">csv file</Button>
+                                </MenuItem>
+                            </Menu>
+                        </Overlay>
+                        <ChildContent>
+                            <a class="ant-dropdown-link" @onclick:preventDefault>
+                                <Icon Type="environment" Theme="outline" Height="1.5em" Width="1.5em"/>
+                            </a>
+                        </ChildContent>
+                    </Dropdown>
+                </div>                
+                <div class="box1_single">
+                    @if (param.DLFileInfos.Converting)
+                    {
+                        <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" Loading>Converting!</Button>
+                    }
+                    @if (param.DLFileInfos.HaveData)
+                    {
+                        <a href='@param.DLFileInfos.FileName' download='@param.DLFileInfos.SaveAsName'><Button Type="@ButtonType.Link" Size="@ButtonSize.Small" >@param.DLFileInfos.Description</Button></a>                        
+                    }
+                </div>
+            </div>
+        </Body>
+    </Card>
+</div>
+
+
+
+

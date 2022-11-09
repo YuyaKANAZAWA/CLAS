@@ -1,0 +1,41 @@
+﻿<div>
+    @*<Card Size="small" Title="@Title" Style="width: 320px">*@
+    <Card Size="small" Title="@Title" Style="@Styles">
+        <Extra>
+            @*<Tag PresetColor="@PresetColor.Orange">SBF</Tag>*@
+            <Tag PresetColor="@TagColor">@TagTitle</Tag>
+        </Extra>
+        <Body>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>@Row1Name</Text></div>
+                <div class="box1">@Row1Value</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>@Row2Name</Text></div>
+                <div class="box1">@Row2Value</div>
+            </div>
+        </Body>
+    </Card>
+</div>
+
+
+<style>
+    .box1{
+        float: left;
+        width: 150px;
+    }
+    .boxContainer{
+        overflow: hidden;
+        width: 300px;
+    }
+    .boxDivider{
+        width: 100%;
+        height: 1px;
+        background-color: palegoldenrod;
+    }
+</style>
+
+
+
+

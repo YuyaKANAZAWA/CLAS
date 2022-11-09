@@ -1,0 +1,24 @@
+﻿@*データファイル選択用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Data file selection")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>Select data file:</Text><br/>
+            <InputFile OnChange="CopyToServer" />
+            <span>@errorMessage</span>
+            
+            @if (isLoading)
+            {
+                <p>Loading...<Spin/></p>
+                <br />
+            }
+            else if(!string.IsNullOrEmpty(NowStatus.FileName) && !string.IsNullOrEmpty(NowStatus.ServerFullPath))
+            {
+                <br />
+                <br />
+                <p>File "@NowStatus.FileName" is copied to "@NowStatus.ServerFullPath"</p>
+            }
+        </p>
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>

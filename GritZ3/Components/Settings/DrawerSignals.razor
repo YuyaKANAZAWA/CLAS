@@ -1,0 +1,99 @@
+﻿@using GrToolBox.Data.SBF
+@using GritZ3.Pages
+@using System.ComponentModel
+@using static GrToolBox.Data.SBF.SbfDefinitions
+
+@*測位方法設定用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Sginals")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>Code Pseudorange</Text><br/>
+            <Table DataSource="@NowStatus.CodeRowDatas" Bordered=@true Size=@TableSize.Small HidePagination=@true @bind-SelectedRows="NowStatus.CodeSelectedRows">
+                <Selection CheckStrictly Key="@(context.Name.ToString())"/>
+                <Column @bind-Field="@context.Name">@context.Name</Column>
+                <Column @bind-Field="@context.Sig1">                    
+                    <SimpleSelect Bordered="false" @bind-Value="@context.Sig1" Style="width:75px;" Size="small" >
+                        <SelectOptions>
+                            @foreach(string codeName in context.SigList1)
+                            {
+                                <SimpleSelectOption Value="@codeName" Label="@codeName"></SimpleSelectOption>
+                            }
+                        </SelectOptions>
+                    </SimpleSelect>
+                </Column>
+                <Column @bind-Field="@context.Sig2">
+                    <SimpleSelect Bordered="false" @bind-Value="@context.Sig2" Style="width:75px;" Size="small">
+                        <SelectOptions>
+                            @foreach(string codeName in context.SigList2)
+                            {
+                                <SimpleSelectOption Value="@codeName" Label="@codeName"></SimpleSelectOption>
+                            }
+                        </SelectOptions>
+                    </SimpleSelect>
+                </Column>
+                <Column @bind-Field="@context.Sig3">
+                    <SimpleSelect Bordered="false" @bind-Value="@context.Sig3" Style="width:75px;" Size="small">
+                        <SelectOptions>
+                            @foreach(string codeName in context.SigList3)
+                            {
+                                <SimpleSelectOption Value="@codeName" Label="@codeName"></SimpleSelectOption>
+                            }
+                        </SelectOptions>
+                    </SimpleSelect>
+                </Column>
+            </Table>
+        </p>
+        <Divider/>
+        <p>
+            <Text Strong>Elevation cut off (mask) angle  [deg]</Text>
+            <Switch @bind-Checked="NowStatus.ApplyElevationMask" Disabled="false" CheckedChildren="Apply" UnCheckedChildren="OFF" /><br/>
+            <AntDesign.InputNumber @bind-Value="@NowStatus.ElevationMask" Min="0" Max="90" DefaultValue="15" Disabled=@NowStatus.DisabledElevationMask></AntDesign.InputNumber>
+        </p>
+        <Divider/>
+        <p>
+            <Text Strong>C/N0 mask [dB/Hz]</Text>
+            <Switch @bind-Checked="NowStatus.ApplyCnMask" Disabled="false" CheckedChildren="Apply" UnCheckedChildren="OFF" /><br/><br/>
+            <Switch @bind-Checked="NowStatus.IndividualCn0" Disabled=@NowStatus.DisabledCnMask CheckedChildren="Set individually" UnCheckedChildren="Set in a lump"/>  <br/> 
+        </p>
+        @if (NowStatus.IndividualCn0)
+        {
+            <p>
+                <Table DataSource="@NowStatus.CnMaskRowDatas" Bordered=@false Size=@TableSize.Small HidePagination=@true>
+                    <Column @bind-Field="@context.Name">@context.Name</Column>
+                    <Column @bind-Field="@context.Sig1">  
+                        <AntDesign.InputNumber @bind-Value="@context.Sig1" Min="0" Max="60" DefaultValue="30" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber>
+                    </Column>
+                    <Column @bind-Field="@context.Sig2">
+                        <AntDesign.InputNumber @bind-Value="@context.Sig2" Min="0" Max="60" DefaultValue="25" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber>
+                    </Column>
+                    <Column @bind-Field="@context.Sig3">
+                        <AntDesign.InputNumber @bind-Value="@context.Sig3" Min="0" Max="60" DefaultValue="25" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber>
+                    </Column>
+                </Table>
+            </p>
+        }
+        else
+        {
+            <Space Size=@size>
+                <SpaceItem>
+                    Sig1: <AntDesign.InputNumber @bind-Value=@NowStatus.Sig1Cn_InALump Style="width:60px;" Min="0" Max="90" DefaultValue="30" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber> 
+                </SpaceItem>
+                <SpaceItem>
+                    Sig2: <AntDesign.InputNumber @bind-Value=@NowStatus.Sig2Cn_InALump Style="width:60px;" Min="0" Max="90" DefaultValue="25" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber> 
+                </SpaceItem>
+                <SpaceItem>
+                    Sig3: <AntDesign.InputNumber @bind-Value=@NowStatus.Sig3Cn_InALump Style="width:60px;" Min="0" Max="90" DefaultValue="25" Disabled=@NowStatus.DisabledCnMask></AntDesign.InputNumber>
+                </SpaceItem>
+            </Space>
+        }
+        <Divider/>
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>
+
+
+    @code{
+        string size = "small";
+        
+    }

@@ -1,0 +1,85 @@
+﻿.boxDivider {
+    width: 100%;
+    height: 1px;
+    background-color: palegoldenrod;
+}
+
+
+.box1_single {
+    float: left;
+    width: 150px;
+}
+
+.boxContainer_single {
+    overflow: hidden;
+    width: 300px;
+}
+
+
+
+.box1_triple {
+    float: left;
+    width: 200px;
+}
+
+.box2_triple {
+    float: left;
+    width: 780px;
+}
+
+.boxContainer_triple {
+    overflow: hidden;
+    width: 1000px;
+}
+
+
+/*Signals Card*/
+.box1_signals {
+    float: left;
+    width: 150px;
+}
+
+.box2_signals {
+    float: left;
+    width: 370px;
+}
+
+.box3_signals {
+    float: left;
+    width: 370px;
+}
+
+.boxContainer_signals {
+    overflow: hidden;
+    width: 1000px;
+}
+
+/*TimeSettings Card*/
+.boxContainer_timesettings {
+    overflow: hidden;
+    width: 600px;
+}
+
+.box1_timesettings {
+    float: left;
+    width: 200px;
+}
+
+.boxdivider_timesettings {
+    width: 100%;
+    height: 1px;
+    background-color: palegoldenrod;
+}
+
+.box1_time_test {
+    width: 80px;
+}
+.box1_time_test2 {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexbox {
+    display: flex;
+}

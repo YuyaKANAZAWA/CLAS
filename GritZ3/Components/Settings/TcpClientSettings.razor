@@ -1,0 +1,54 @@
+﻿@inject MessageService _message
+
+<Text Strong>IP address (server)</Text>
+
+<Select DataSource="@_list"
+        @bind-Value="@_selectedValue"
+        ValueName="@nameof(ServerInfo.Id)"
+        LabelName="@nameof(ServerInfo.Name)"
+        Placeholder="Select or add new address"
+        OnSelectedItemChanged="OnSelectedItemChangedHandler"
+        DropdownRender="@DropdownRender">
+</Select>
+
+<br />
+
+<Text Strong>Port</Text><br />
+<AntDesign.InputNumber @bind-Value="@NowStatus.TcpPortNumber" Min="0" Max="65535"/>
+
+
+
+@code {
+
+    class ServerInfo
+    {
+        public int Id { get; set; }
+        public string IpAddress { get; set; } = "";
+        public string Name { get; set; } = "";
+    }
+
+
+    private RenderFragment DropdownRender(RenderFragment originNode)
+    {
+        RenderFragment customDropdownRender =
+            @<Template>
+                <div>
+                    @originNode
+                    <Divider Style="margin: 4px 0"></Divider>
+                    <div style="display: flex; flex-wrap: nowrap; padding: 8px">
+                        <Input Style="flex: auto" @bind-Value="@_name"/>
+                        <a style="flex: none; padding: 8px; display: block; cursor: pointer" @onclick="AddItem">
+                            <Icon Type="plus" Theme="outline"></Icon>
+                            Add
+                        </a>
+                    </div>
+                </div>
+            </Template>;
+
+        return customDropdownRender;
+    }
+
+
+
+
+}

@@ -1,0 +1,84 @@
+﻿@page "/datafileviewer"
+@using GritZ3.Pages
+@using GrToolBox.Data.Nmea
+@using GritZ3.Components.Cards.GeneralDispCard
+@using GritZ3.Components.Settings
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
+@using LeafletOnBlazor;
+@using GritZ3.Components.Plots
+@using GritZ3.Components.Cards
+
+<div style="display:flex; flex-wrap:wrap;">
+
+    <div style="margin:10px 10px;">
+        <Button Type="@ButtonType.Default" 
+            Icon="@IconType.Outline.Setting" 
+            Size="@ButtonSize.Default"
+            Style="margin-right:20px; margin-bottom:0px"
+            OnClick="Open_DrawerDataSource1"
+            />
+        <big><strong>Data Source 1</strong></big>
+        <GeneralDispCard Data="@Data1ForCard"/>
+        <div style="width: 350px;">
+            <Progress Percent="@progress_1" Size="@ProgressSize.Small" />
+        </div>
+    </div>
+
+    <div style="margin:42px 10px 10px 10px;">
+        <TimeSettingsCard TimeSettings="@TimeSettings" OnClickPlayPauseCallback="OnClickPlay" />
+    </div>
+
+    <div style="margin:10px 10px;">
+        <DataFileDLCard Data="DataFileDLCardData" OnClickGetFileCallback="OnClickGetFile"/>
+    </div>
+
+
+</div>
+
+<Button OnClick="OnClickPlotClear">Clear Plot</Button>
+<Button OnClick="OnClickPlotRedraw">Redraw</Button>
+
+<Tabs @bind-ActiveKey="ActiveKey" DefaultActiveKey="1">
+    <TabPane Tab="E-N" Key="1">
+        @*<E_NPlotFile dataForPlot="@DataForPlot" ActiveKey="@ActiveKey" RenderKey="1"/>*@
+        <E_NPlot PlotNames="@PlotNames" Data1="@Data1ForPlot" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="1" FilePlot="@true" PlotCtrl="@PlotCtrl"/>
+    </TabPane>
+    <TabPane Tab="ENU" Key="2" ForceRender="true">
+        <ENUPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="2" FilePlot="@true"/>
+    </TabPane>
+    <TabPane Tab="LLH" Key="3" ForceRender="true">
+        <LLHPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="3" FilePlot="@true"/>
+        @*<LLHPlotFile dataForPlot="@DataForPlot" ActiveKey="@ActiveKey" RenderKey="3"/>*@
+    </TabPane>
+    <TabPane Tab="CLK" Key="4" Disabled="true" ForceRender="true">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="SKY" Key="5">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="SAT" Key="6">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="DOP" Key="7">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="MAP" Key="8">
+        @*<MapPlot2 dataForPlot="@DataForPlot" MapRendered="@MapRendered"/>*@
+        <MapPlot Data="@Data1" ActiveKey="@ActiveKey" RenderKey="8" FilePlot="@true"/>
+    </TabPane>
+</Tabs>
+
+<div>
+    <DrawerDataFileSettings Stg="@Stg" DrawerInfo="@DataSource1Info" OnClickCallback="ApplySettingChange"/>
+</div>
+
+@using System.Globalization
+@code{
+    CultureInfo CiEn = CultureInfo.GetCultureInfo("en-US");
+
+    private string Format1(double value)
+    {
+        return "$ " + value.ToString("n0");
+    }
+}

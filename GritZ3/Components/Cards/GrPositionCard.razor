@@ -1,0 +1,65 @@
+﻿@using static GrToolBox.Settings.SettingsDefinitions
+
+<div>
+    <Card Size="small" Title="@Title" Style="@Styles">
+        <Extra>
+            @if (Type == "LS") { <Tag Color="blue-inverse">LS</Tag> }
+            @if (Type == "KF") { <Tag Color="purple-inverse">KF</Tag> }
+            @if (Type == "NMEA") { <Tag Color="success">NMEA</Tag> }
+        </Extra>
+        <Body>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Time (GPS): </Text></div>
+                <div class="box1">@TimeUtc</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Lat: </Text></div>
+                <div class="box1">@Lat</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Lon: </Text></div>
+                <div class="box1">@Lon</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Alt(MSL): </Text></div>
+                <div class="box1">@Alt</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>Ell height: </Text></div>
+                <div class="box1">@EllHeight</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>HDOP: </Text></div>
+                <div class="box1">@HDOP</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>VDOP: </Text></div>
+                <div class="box1">@VDOP</div>
+            </div>            
+        </Body>
+    </Card>
+</div>
+
+
+<style>
+    .box1{
+        float: left;
+        width: 150px;
+    }
+    .boxContainer{
+        overflow: hidden;
+        width: 300px;
+    }
+    .boxDivider{
+        width: 100%;
+        height: 1px;
+        background-color: palegoldenrod;
+    }
+</style>
+

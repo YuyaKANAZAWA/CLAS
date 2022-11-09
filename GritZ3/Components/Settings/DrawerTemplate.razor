@@ -1,0 +1,13 @@
+﻿@using GritZ3.Pages
+
+@*測位方法設定用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Template")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>Least Squares (snap shot)</Text><br/>
+
+        </p>
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>

@@ -1,0 +1,56 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager
+
+<PageTitle>G-Rits</PageTitle>
+
+
+<Layout Style="width: 100%; height: 100%;">
+    <Header>
+        <Title Level="2" Style="float: left; color: white; margin: 10px 50px 10px 0px;">G-RitZ</Title>
+        <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys="SelectedPage" OnMenuItemClicked="OnMenuSelected">
+            <MenuItem Key="/">Home</MenuItem>
+            <MenuItem Key="/counter">Counter</MenuItem>
+            <MenuItem Key="/fetchdata">FetchData</MenuItem>
+            <MenuItem Key="/DataViewer">Data Viewer</MenuItem>
+            <MenuItem Key="/DataFileViewer">Data File Viewer</MenuItem>
+        </Menu>
+    </Header>
+    <Layout>
+        <Content Style="padding: 0px 50px">
+            @Body
+        </Content>
+    </Layout>
+    <Footer>
+        <p>まい さんぷる あぷり</p>
+    </Footer>
+</Layout>
+
+@code {
+    private string[] SelectedPage { get; set; } = new[] { "/" };
+    private void OnMenuSelected(MenuItem menuItem)
+    {
+        _navigationManager.NavigateTo(menuItem.Key);
+        SelectedPage = new[] { menuItem.Key };
+    }
+}
+
+
+
+
+
+@*<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+*@

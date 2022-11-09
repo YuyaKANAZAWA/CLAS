@@ -1,0 +1,17 @@
+﻿@using GrToolBox.Data.Nmea
+@using GritZ3.Classes
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
+@implements IDisposable
+
+<div>
+    <PlotlyChart @bind-Config="config" @bind-Layout="layout_EN" @bind-Data="data_EN" @ref="chart_EN"/>
+</div>
+
+
+@code {
+    public void Dispose()
+    {
+       
+    }
+}

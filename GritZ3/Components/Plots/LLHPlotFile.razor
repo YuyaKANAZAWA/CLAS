@@ -1,0 +1,14 @@
+﻿@using GritZ3.Classes
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
+
+
+<div>
+    <PlotlyChart @bind-Config="config" @bind-Layout="layout_Lat" @bind-Data="data_Lat" @ref="chart_Lat"/>
+    <PlotlyChart @bind-Config="config" @bind-Layout="layout_Lon" @bind-Data="data_Lon" @ref="chart_Lon"/>
+    <PlotlyChart @bind-Config="config" @bind-Layout="layout_Alt" @bind-Data="data_Alt" @ref="chart_Alt"/>
+</div>
+
+@code {
+
+}

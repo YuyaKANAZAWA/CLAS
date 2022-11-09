@@ -1,0 +1,10 @@
+﻿@*@using GritZ_BL2.Classes
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
+*@
+
+<div id="my_wrapper" style="height: 800px">
+<LeafletOnBlazor.Map @ref="mapRef" MapOptions="@mapOptions" CssClass="my_MainPlotArea" AfterRender="@AfterMapRender"></LeafletOnBlazor.Map>
+</div>
+
+

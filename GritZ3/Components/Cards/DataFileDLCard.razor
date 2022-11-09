@@ -1,0 +1,48 @@
+﻿<div>
+    <Card Size="small" Title="@Data.Title" Style="width: 320px; border-width:2px; background-color:whitesmoke">
+        <Body>
+            <div class="boxContainer">
+                <div class="box1"><Button Size="@ButtonSize.Small" Type="@ButtonType.Text">Get NMEA</Button></div>
+                <div class="box1"></div>
+            </div>
+            <div class="boxContainer">
+                <div class="box1"><Button Size="@ButtonSize.Small" Type="@ButtonType.Text" OnClick="OnClickKMLButton">Get KML</Button></div>
+                <div class="box1">
+                    @if(Data.KmlDescription != string.Empty)
+                    {
+                        <a href='@Data.KmlFileName' download='@Data.KmlSaveAsName'><Button Type="@ButtonType.Link" Size="@ButtonSize.Small" >@Data.KmlDescription</Button></a>  
+                    }
+                </div>
+            </div>
+            <div class="boxContainer">
+                <div class="box1"><Button Size="@ButtonSize.Small" Type="@ButtonType.Text" Disabled="@true">Get GPX</Button></div>
+                <div class="box1"></div>
+            </div>
+            <div class="boxContainer">
+                <div class="box1"><Button Size="@ButtonSize.Small" Type="@ButtonType.Text" OnClick="OnClickCSVButton">Get CSV</Button></div>
+                <div class="box1"></div>
+            </div>
+        </Body>
+    </Card>
+</div>
+
+
+<style>
+    .box1{
+        float: left;
+        width: 150px;
+    }
+    .boxContainer{
+        overflow: hidden;
+        width: 300px;
+    }
+    .boxDivider{
+        width: 100%;
+        height: 1px;
+        background-color: palegoldenrod;
+    }
+</style>
+
+
+
+

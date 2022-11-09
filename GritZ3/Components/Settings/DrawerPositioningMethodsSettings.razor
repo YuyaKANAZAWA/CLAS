@@ -1,0 +1,18 @@
+﻿@using GritZ3.Pages
+
+@*測位方法設定用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Positioning Methods")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>Least Squares (snap shot)</Text><br/>
+            <Switch Checked="true" Disabled="true" CheckedChildren="ON" UnCheckedChildren="OFF" />
+            <br/>
+            <br/>
+            <Text Strong>Kalman Filter</Text><br/>
+            <Switch @bind-Checked="NowStatus.SwitchKF" Disabled="false" CheckedChildren="ON" UnCheckedChildren="OFF" />
+
+        </p>
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>

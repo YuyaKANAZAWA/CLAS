@@ -1,0 +1,14 @@
+﻿@using GrToolBox.Data.Nmea
+@using GritZ3.Classes
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
+
+
+<div>
+    <PlotlyChart @bind-Config="config_E" @bind-Layout="layout_E" @bind-Data="data_E" @ref="chart_E"/>
+    <PlotlyChart @bind-Config="config_N" @bind-Layout="layout_N" @bind-Data="data_N" @ref="chart_N"/>
+    <PlotlyChart @bind-Config="config_U" @bind-Layout="layout_U" @bind-Data="data_U" @ref="chart_U"/>
+</div>
+
+
+

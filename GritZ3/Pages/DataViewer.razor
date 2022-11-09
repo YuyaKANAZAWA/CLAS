@@ -1,0 +1,68 @@
+﻿@page "/dataviewer"
+@using GritZ3.Components.Cards
+@using GritZ3.Components.Plots
+@using GritZ3.Components.Cards.GeneralDispCard
+@inject NotificationService _notice
+
+
+<div style="display:flex; flex-wrap:wrap;">
+    <p>
+        <div style="margin:10px 10px;">
+            <Button Type="@ButtonType.Default" 
+                 Icon="@IconType.Outline.Setting" 
+                 Size="@ButtonSize.Default"
+                 Style="margin-right:20px; margin-bottom:0px"
+                 OnClick="Open_DrawerDataSource1" />
+            <big><strong>Data Source 1</strong></big>
+            @*<DataSourceCard Stg="@Stg1" Color="gainsboro"/>*@
+            <GeneralDispCard Data="@Data1ForCard"/>
+        </div>
+        <div style="margin:10px 10px;">
+            <PosRTControlCard param="@ParamsControlCard" OnClickCallback="OnClickStartStopButton" OnClickRecordingCallback="OnClickRecordingSwitch" OnClickFileCallback="OnClickFileButton"/>
+        </div>
+        <div style="margin:10px 10px;">
+            <GrPositionCard Data="@EpochPosReceiver1" Type="NMEA" Color="snowwhite" Title="Data Source 1"/>
+        </div>
+    </p>
+</div>
+
+
+<Tabs @bind-ActiveKey="ActiveKey" DefaultActiveKey="1">
+    <TabPane Tab="E-N" Key="1">
+        @*<E_NPlotRealTime2 PlotNames="@PlotNames" Data1="@EpochPosReceiver1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="1"/>*@
+        <E_NPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="1" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="ENU" Key="2" ForceRender="@true">
+        @*<ENUPlotRealTime2 PlotNames="@PlotNames" Data1="@EpochPosReceiver1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="2"/>*@
+        <ENUPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="2" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="LLH" Key="3" ForceRender="@true">
+        <LLHPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@null" Data3="@null" ActiveKey="@ActiveKey" RenderKey="3" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="CLK" Key="4" ForceRender="@true">
+    </TabPane>
+    <TabPane Tab="SKY" Key="5" Disabled="true">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="SAT" Key="6">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="DOP" Key="7">
+        Content of tab 3
+    </TabPane>
+    <TabPane Tab="MAP" Key="8"> @*ここは敢えてforcerenderedは要らない*@
+        <MapPlot Data="@Data1" ActiveKey="@ActiveKey" RenderKey="8" FilePlot="@false"/>
+        @*<MapPlot2RealTime EpochPosData="@EpochPosReceiver1"/>*@
+    </TabPane>
+</Tabs>
+
+<GritZ3.Components.Settings.DrawerDataSourceSettings Stg="@Stg1" DrawerInfo="@DataSource1" OnClickCallback="ApplySettingChange"/>
+
+
+
+
+
+
+
+
+

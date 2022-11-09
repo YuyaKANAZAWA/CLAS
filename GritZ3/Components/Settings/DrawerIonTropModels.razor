@@ -1,0 +1,53 @@
+﻿@using GritZ3.Pages
+
+@*Ion,Tropモデル設定用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Template")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>Iono model</Text><br/>
+            <SimpleSelect DefaultValue="None" Label="IonoModel" @bind-Value="@NowStatus.IonoModel">
+                <SelectOptions>
+                    <SimpleSelectOption Value="None" Label="None"></SimpleSelectOption>
+                    <SimpleSelectOption Value="GpsBroadcast" Label="GPS Broadcast (Klobuchar)"></SimpleSelectOption>
+                    <SimpleSelectOption Value="IonFree" Label="Iono free combination"></SimpleSelectOption>
+                    <SimpleSelectOption Value="IONEX" Label="GIM (IONEX)"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+        </p>
+        <p>
+            <Text Strong>Trop model</Text><br/>
+            <SimpleSelect DefaultValue="None" Label="TropModel" @bind-Value="@NowStatus.TropModel">
+                <SelectOptions>
+                    <SimpleSelectOption Value="None" Label="None"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Simple" Label="Simple model"></SimpleSelectOption>
+                    <SimpleSelectOption Value="Saastamoinen" Label="Saastamoinen"></SimpleSelectOption>
+                    <SimpleSelectOption Value="MOPS" Label="MOPS"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+        </p>
+        <p>
+            <Text Strong>Trop mapping function></Text><br/>
+            @if (NowStatus.TropModel == "Saastamoinen" || NowStatus.TropModel == "MOPS")
+            {
+                <SimpleSelect DefaultValue="None" Label="TropMappingFunction" @bind-Value="@NowStatus.TropMappingFunction">
+                    <SelectOptions>
+                        <SimpleSelectOption Value="cos" Label="1/cos(zenith)"></SimpleSelectOption>
+                        <SimpleSelectOption Value="Chao" Label="Chao"></SimpleSelectOption>
+                        <SimpleSelectOption Value="Neil" Label="Neil"></SimpleSelectOption>
+                    </SelectOptions>
+                </SimpleSelect>
+            }
+            else
+            {
+                <Text> > > This model does not need the mapping function</Text>
+            }
+    </p>
+
+
+
+
+
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>

@@ -1,0 +1,145 @@
+﻿@page "/positioning_rt"
+@using System.IO.Ports
+@using GrToolBox.Communication
+@using GrToolBox.Data.Nmea
+@using GrToolBox.Settings
+@using GritZ3.Components.Plots
+@using GritZ3.Components.Settings
+@using GritZ3.Components.Cards
+@using static GrToolBox.Settings.SettingsDefinitions
+@inject MessageService _message
+
+<p>
+        <div style="display:flex; flex-wrap:wrap;">
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                     Icon="@IconType.Outline.Setting" 
+                     Size="@ButtonSize.Default"
+                     Style="margin-right:20px; margin-bottom:0px"
+                     OnClick="Open_DrawerDataSource" />
+                <big><strong>Data Source</strong></big>
+                <DataSourceCard Stg="@Stg"/>
+            </div>
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                    Icon="@IconType.Outline.Setting" 
+                    Size="@ButtonSize.Default"
+                    Style="margin-right:20px; margin-bottom:0px"
+                    OnClick="Open_DrawerPositioningMethods" />
+                <big><strong>Positioning Methods</strong></big>
+                <PositioningMethodsCard Stg="@Stg"/>
+            </div>
+
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                    Icon="@IconType.Outline.Setting" 
+                    Size="@ButtonSize.Default"
+                    Style="margin-right:20px; margin-bottom:0px"
+                    OnClick="Open_DrawerIonTrop" />
+                <big><strong>Ion, Trop models</strong></big>
+                <IonTropModelsCard Stg="@Stg"/>
+            </div>
+
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                    Icon="@IconType.Outline.Setting" 
+                    Size="@ButtonSize.Default"
+                    Style="margin-right:20px; margin-bottom:0px"
+                    OnClick="Open_DrawerSignals" />
+                <big><strong>Signals</strong></big>
+                <SignalsCard Stg="@Stg"/>
+            </div>
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                    Icon="@IconType.Outline.Setting" 
+                    Size="@ButtonSize.Default"
+                    Style="margin-right:20px; margin-bottom:0px"
+                    OnClick="Open_DrawerSatellite" />
+                <big><strong>Satellites</strong></big>
+                <SatelliteCard Stg="@Stg"/>
+            </div>
+
+            <div style="margin:10px 10px;">
+                <Button Type="@ButtonType.Default" 
+                    Icon="@IconType.Outline.Setting" 
+                    Size="@ButtonSize.Default"
+                    Style="margin-right:20px; margin-bottom:0px"
+                    OnClick="Open_DrawerTemplate" />
+                <big><strong>Template</strong></big>
+                <TemplateCard Stg="@Stg"/>
+            </div>
+
+
+            <div style="margin:10px 10px;">
+                <PosRTControlCard param="@ParamsControlCard" OnClickCallback="OnClickStartStopButton"/>
+            </div>
+
+            <Divider/>
+
+            <div style="margin:10px 10px;">
+                <GrPositionCard Data="@EpochPosLS_forCard" Type="LS" Color="aliceblue" Title="GritZ result"/>
+            </div>
+            <div style="margin:10px 10px;">
+                <GrPositionCard Data="@EpochPosKF_forCard" Type="KF" Color="aliceblue" Title="GritZ result"/>
+            </div>
+            <div style="margin:10px 10px;">
+                <GrPositionCard Data="@EpochPosReceiver_forCard" Type="NMEA" Color="whitesmoke" Title="Result from receiver"/>
+            </div>
+
+        </div>
+<DrawerDataSourceSettings Stg="@Stg" DrawerInfo="@DataSourceInfo" OnClickCallback="ApplySettingChange"/>
+<DrawerPositioningMethodsSettings Stg="@Stg" DrawerInfo="@PositioningMethodsInfo"  OnClickCallback="ApplySettingChange"/>
+<DrawerSignals Stg="@Stg" DrawerInfo="@SignalsInfo"  OnClickCallback="ApplySettingChange"/>
+<DrawerSatellite Stg="@Stg" DrawerInfo="@SatelliteInfo" OnClickCallback="ApplySettingChange"/>
+<DrawerIonTropModels Stg="@Stg" DrawerInfo="@IonTropInfo" OnClickCallback="ApplySettingChange"/>
+<DrawerTemplate Stg="@Stg" DrawerInfo="@TemplateInfo" OnClickCallback="ApplySettingChange"/>
+
+</p>
+
+<Tabs @bind-ActiveKey="ActiveKey" DefaultActiveKey="1">
+    <TabPane Tab="E-N" Key="1">
+        @*<E_NPlotRealTime2 PlotNames="@PlotNames" Data1="@EpochPosLS" Data2="@EpochPosKF" Data3="@EpochPosReceiver" ActiveKey="@ActiveKey" RenderKey="1"/>*@
+        @*<E_NPlotRealTime3 PlotNames="@PlotNames" Data="@testData" ActiveKey="@ActiveKey" RenderKey="1"/>*@
+        <E_NPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@Data2" Data3="@Data3" ActiveKey="@ActiveKey" RenderKey="1" FilePlot="@false"/>
+
+    </TabPane>
+    <TabPane Tab="ENU" Key="2" ForceRender="@true">
+        @*<ENUPlotRealTime PlotNames="@PlotNames" Data1="@EpochPosLS" Data2="@EpochPosKF" Data3="@EpochPosReceiver" ActiveKey="@ActiveKey"/>*@
+        @*<ENUPlotRealTime2 PlotNames="@PlotNames" Data1="@EpochPosLS" Data2="@EpochPosKF" Data3="@EpochPosReceiver" ActiveKey="@ActiveKey" RenderKey="2"/>*@
+        @*<ENUPlotRealTime3 PlotNames="@PlotNames" Data="@testData" ActiveKey="@ActiveKey" RenderKey="2"/>*@
+        <ENUPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@Data2" Data3="@Data3" ActiveKey="@ActiveKey" RenderKey="2" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="LLH" Key="3" ForceRender="@true">
+        <LLHPlot PlotNames="@PlotNames" Data1="@Data1" Data2="@Data2" Data3="@Data3" ActiveKey="@ActiveKey" RenderKey="3" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="CLK" Key="4" ForceRender="@true">
+        @*<CLKPlotRealTime PlotNames="@PlotNamesCLK" Data1="@EpochPosLS" Data2="@EpochPosKF" ActiveKey="@ActiveKey"/>*@
+        @*<CLKPlotRealTime2 PlotNames="@PlotNamesCLK" Data1="@EpochPosLS" Data2="@EpochPosKF" ActiveKey="@ActiveKey"/>*@
+        @*<CLKPlotRealTime3 PlotNames="@PlotNamesCLK" Data="@testData" ActiveKey="@ActiveKey" RenderKey="4"/>*@
+        <CLKPlot PlotNames="@PlotNamesCLK" Data1="@Data1" Data2="@Data2" ActiveKey="@ActiveKey" RenderKey="4" FilePlot="@false"/>
+    </TabPane>
+    <TabPane Tab="SKY" Key="5" ForceRender="@true">
+        Content of tab 5
+    </TabPane>
+    <TabPane Tab="SAT" Key="6" ForceRender="@true">
+        Content of tab 6
+    </TabPane>
+    <TabPane Tab="MAP" Key="7" ForceRender="@true">
+        <MapPlot Data="@Data1" ActiveKey="@ActiveKey" RenderKey="7" FilePlot="@false"/>
+    </TabPane>
+</Tabs>
+
+
+<Divider/>
+
+
+
+
+
+
+
+
+
+
+
+

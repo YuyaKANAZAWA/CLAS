@@ -1,0 +1,144 @@
+﻿@using GritZ3.Pages
+
+@*測位方法設定用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Template")' OnClose="_=>Close_This()">
+        <p>
+            <Text Strong>GPS Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+                @bind-Values="@NowStatus.ValuesGps"
+                TItemValue="string"
+                TItem="string"
+                OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+                Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+                <SelectOptions>
+                    @foreach(var item in ItemsGps)
+                    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>GLO Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+                @bind-Values="@NowStatus.ValuesGlo"
+                TItemValue="string"
+                TItem="string"
+                OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+                Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+                <SelectOptions>
+                    @foreach(var item in ItemsGlo)
+                    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>GAL Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+		        @bind-Values="@NowStatus.ValuesGal"
+		        TItemValue="string"
+		        TItem="string"
+		        OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+		        Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+    		    <SelectOptions>
+	    		    @foreach(var item in ItemsGal)
+		    	    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>QZS Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+		        @bind-Values="@NowStatus.ValuesQzs"
+		        TItemValue="string"
+		        TItem="string"
+		        OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+		        Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+    		    <SelectOptions>
+	    		    @foreach(var item in ItemsQzs)
+		    	    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>BDS Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+		        @bind-Values="@NowStatus.ValuesBds"
+		        TItemValue="string"
+		        TItem="string"
+		        OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+		        Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+    		    <SelectOptions>
+	    		    @foreach(var item in ItemsBds)
+		    	    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>IRN Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+		        @bind-Values="@NowStatus.ValuesIrn"
+		        TItemValue="string"
+		        TItem="string"
+		        OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+		        Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+    		    <SelectOptions>
+	    		    @foreach(var item in ItemsIrn)
+		    	    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+            <Text Strong>SBS Excluding</Text><br/>
+            <Select Mode="multiple"
+                Placeholder="Please select"
+                @bind-Values="@NowStatus.ValuesSbs"
+                TItemValue="string"
+                TItem="string"
+                OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+                Style="width: 100%; margin-bottom: 8px;"
+                AllowClear>
+                <SelectOptions>
+                    @foreach(var item in ItemsSbs)
+                    {
+                        <SelectOption TItemValue="string" TItem="string" Value=@item Label=@item />
+                    }
+                </SelectOptions>
+            </Select>
+
+
+        </p>
+        <p>
+            <Button OnClick="Pushed_Apply">Apply</Button>
+            <Button OnClick="Pushed_Cancel">Cancel</Button>
+        </p>
+    </Drawer>
+
+
+
+    @code
+    {
+        
+    private void OnSelectedItemsChangedHandler(IEnumerable<string> values)
+    {
+        if (values != null)
+            Console.WriteLine($"selected: ${string.Join(",", values)}");
+    }
+
+    }

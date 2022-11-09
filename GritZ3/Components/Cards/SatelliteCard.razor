@@ -1,0 +1,72 @@
+﻿<div>
+    <Card Size="small" Title="Satellites excluding: " Style="width: 320px">
+        <Extra>
+            <Space Size="@($"{0.0}")">
+            @if (DispTagGps){ <Tag Color="blue">G</Tag> }
+            @if (DispTagGlo){ <Tag Color="hotpink">R</Tag> }
+            @if (DispTagGal){ <Tag Color="purple">E</Tag> }
+            @if (DispTagQzs){ <Tag Color="red">J</Tag> }
+            @if (DispTagBds){ <Tag Color="cyan">C</Tag> }
+            @if (DispTagIrn){ <Tag Color="green">I</Tag> }
+            @if (DispTagSbs){ <Tag Color="gold">S</Tag> }
+            </Space>
+        </Extra>
+        <Body>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GPS: </Text></div>
+                <div class="box1">@ExcludingDisp[0]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GLO: </Text></div>
+                <div class="box1">@ExcludingDisp[1]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>GAL: </Text></div>
+                <div class="box1">@ExcludingDisp[2]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>QZS: </Text></div>
+                <div class="box1">@ExcludingDisp[3]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>BDS: </Text></div>
+                <div class="box1">@ExcludingDisp[4]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>IRN: </Text></div>
+                <div class="box1">@ExcludingDisp[5]</div>
+            </div>
+            <div class="boxDivider"></div>
+            <div class="boxContainer">
+                <div class="box1"><Text Strong>SBS: </Text></div>
+                <div class="box1">@ExcludingDisp[6]</div>
+            </div>
+        </Body>
+    </Card>
+</div>
+
+
+<style>
+    .box1{
+        float: left;
+        width: 150px;
+    }
+    .boxContainer{
+        overflow: hidden;
+        width: 300px;
+    }
+    .boxDivider{
+        width: 100%;
+        height: 1px;
+        background-color: palegoldenrod;
+    }
+</style>
+
+
+
+

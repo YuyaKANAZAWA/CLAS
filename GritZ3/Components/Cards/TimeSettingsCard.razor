@@ -1,0 +1,110 @@
+﻿@inject MessageService _message
+
+<div>
+    <Card Size="small" Style="width: 620px" Bordered="@false">
+        <Body>
+            <div class="flexbox">
+                <div class="box1_time_test2">
+                    <Switch Size="small" Checked="@TimeSettings.ChangeStart" OnChange="OnChangeStartSwitch"/>
+                    <Text Strong>Change start time</Text><br/>
+                    <DatePicker TValue="DateTime?" ShowTime="@true" CultureInfo="CiEn" 
+                        Format="yyyy-MM-dd HH:mm:ss.FFF"
+                        OnChange="OnChangePicker_S"
+                        Value="@TimeSettings.StartTime"
+                        Disabled="@DisablePicker_S"
+                        ShowToday="@false"
+                        Style="width:100%; margin-top:5px;"
+                        DisabledDate="date => date < TimeSettings.StartTime || date > TimeSettings.EndTime"
+                        />    
+                </div>
+
+                <div style="width:40px; align-content: center; justify-content: center;"><br/><Icon Type="arrow-right" Width="40px" Style="font-size:larger"/></div>
+
+                <div class="box1_time_test2">
+                    <Switch Size="small" Checked="@TimeSettings.ChangeEnd" OnChange="OnChangeEndSwitch"/>
+                    <Text Strong>Change end time</Text><br/>
+                    <DatePicker TValue="DateTime?" ShowTime="@true" CultureInfo="CiEn" 
+                        Format="yyyy-MM-dd HH:mm:ss.FFF"
+                        OnChange="OnChangePicker_E"
+                        Value="@TimeSettings.EndTime"
+                        Disabled="@DisablePicker_E"
+                        ShowToday="@false"
+                        Style="width:100%; margin-top:5px;"
+                        DisabledDate="date => date < TimeSettings.StartTime || date > TimeSettings.EndTime"
+                        />    
+                </div>
+            </div>
+
+            <div style="margin-top:20px"></div>
+
+            <div class="flexbox">
+                <div class="box1_time_test">
+                    <AntDesign.InputNumber Value="@StartEpochNum" Min="@EpochNumInput_Min" Max="@EpochNumInput_Max" Style="width:80px;" Disabled="DisablePicker_S" ValueChanged="(double val)=>OnInputNumberChanged(val, 's')"/>
+                </div>
+
+                <div class="box1_time_test2">
+                    <Slider TValue="(double, double)"  Value="(SliderStartPos, SliderEndPos)" 
+                        OnChange="(e)=>OnSliderChange(e)"
+                        OnAfterChange="(e)=>OnSliderChange(e)"
+                        Disabled="@DisableSlider"
+                        Max="@SliderMax" Min="@SliderMin"
+                        Style="margin-left:10px; margin-right:10px;"
+                        />
+                </div>
+
+                <div class="box1_time_test">
+                    <AntDesign.InputNumber Value="EndEpochNum" Min="@EpochNumInput_Min" Max="@EpochNumInput_Max" Style="width:80px;" Disabled="DisablePicker_E" ValueChanged="(double val)=>OnInputNumberChanged(val, 'e')"/>
+                </div>
+            </div>
+
+            <div class="flexbox">
+                <div class="box1_time_test">
+                    @if (!NowPlaying)
+                    {
+                        <Button Type="@ButtonType.Text" Style="width:80px;" OnClick="OnClickPlayPauseButton"><Icon Type="caret-right" Theme="outline" Height=1.2em Width=1.2em/></Button>
+                    }
+                    else
+                    {
+                        <Button Type="@ButtonType.Text" Style="width:80px;" OnClick="OnClickPlayPauseButton"><Icon Type="pause" Theme="outline" Height=1.2em Width=1.2em/></Button>
+                    }
+                </div>
+
+                <div class="box1_time_test2">
+                    <Slider TValue="(double, double)"  Value="(PlaySliderPos, SliderEndPos)" 
+                        OnChange="(e)=>OnPlayerChange(e)"
+                        OnAfterChange="(e)=>OnPlayerChange(e)"
+                        Disabled="@DisableSlider"
+                        Max="@SliderMax" Min="@SliderMin"
+                        Style="margin-left:10px; margin-right:10px;"
+                        />
+                        @PlayTimeDisp
+                </div>
+
+                <div class="box1_time_test">
+                    <div class="flexbox" style="width:80px">
+                        <div class="box1_time_test">
+                            <Tooltip Title="@("Epoch interval for animation")">
+                                <SimpleSelect DefaultValue="1s" Style="width:80px;" OnSelectedItemChanged="IntervalChange">
+                                    <SelectOptions>
+                                        <SimpleSelectOption Value="1s" Label="1s"></SimpleSelectOption>
+                                        <SimpleSelectOption Value="500ms" Label="500ms"></SimpleSelectOption>
+                                        <SimpleSelectOption Value="100ms" Label="100ms"></SimpleSelectOption>
+                                        <SimpleSelectOption Value="50ms" Label="50ms"></SimpleSelectOption>
+                                    </SelectOptions>
+                                </SimpleSelect>
+                            </Tooltip>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </Body>
+    </Card>
+</div>
+
+
+
+

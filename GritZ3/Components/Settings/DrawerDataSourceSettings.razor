@@ -1,0 +1,108 @@
+﻿@using GritZ3.Pages
+@inject ModalService _modalService
+
+@*シリアルポート設定・接続用ドロワー*@
+    <Drawer Width=400 Closable="false" MaskClosable="false" Visible="@DrawerInfo.Visible" Placement="left" Title='("Data Source")' OnClose="_=>Close_DataSource()">
+        <p>
+            <Text Strong>Data type</Text>
+            <SimpleSelect DefaultValue="SBF" Label="DataType" Value="@NowStatus.DataType" OnSelectedItemChanged="GetDataType">
+                <SelectOptions>
+                    <SimpleSelectOption Value="RTCMv3" Label="RTCMv3"></SimpleSelectOption>
+                    <SimpleSelectOption Value="SBF" Label="SBF (Septentrio)"></SimpleSelectOption>
+                    <SimpleSelectOption Value="UBX" Label="UBX (u-blox)"></SimpleSelectOption>
+                </SelectOptions>
+            </SimpleSelect>
+            <br/>
+            <br/>
+            <Text Strong>Port</Text><br/>
+            <RadioGroup DefaultValue="1" Value="@NowStatus.CnnectionType" OnChange="(int i) => GetConnectionType(i)">
+                <Radio Value="1">Serial</Radio>
+                <Radio Value="2">TCP</Radio>
+                <Radio Value="3" Disabled="@true">UDP</Radio>
+            </RadioGroup>
+        </p>
+
+        @if(NowStatus.CnnectionType == 1)
+        {
+            <p>
+                <Divider Orientation="center" Style="font-weight:bold;font-size:small">
+                    Serial Port Settings
+                </Divider>
+                <SerialPortSettings NowStatus="@NowStatus"/>
+                @*<Divider/>*@
+            </p>
+        }
+
+        @if(NowStatus.CnnectionType == 2)
+        {
+            <p>
+                <Divider Orientation="center" Style="font-weight:bold;font-size:small">
+                    TCP Client Settings
+                </Divider>
+                <TcpClientSettings NowStatus="@NowStatus"/>
+                @*<Divider/>*@
+            </p>
+        }
+
+        <p>
+            <Divider Orientation="center" Style="font-weight:bold; font-size:small">
+               Command to be sent when connected  <Button Type="@ButtonType.Link" OnClick="HandleInfo">?</Button>
+            </Divider>
+            <Select DataSource="@_commandList"
+                @bind-Value="@_selectedCommandValue"
+                ValueName="@nameof(CommandInfo.Id)"
+                LabelName="@nameof(CommandInfo.Name)"
+                Placeholder="Select or add new command"
+                OnSelectedItemChanged="OnSelectedCommandItemChangedHandler"
+                DropdownRender="@DropdownRender">
+            </Select>
+
+
+
+        </p>
+
+
+        <Divider />
+
+        <Button OnClick="Pushed_Apply">Apply</Button>
+        <Button OnClick="Pushed_Cancel">Cancel</Button>
+
+    </Drawer>
+
+@code{
+
+    private RenderFragment DropdownRender(RenderFragment originNode)
+    {
+        RenderFragment customDropdownRender =
+            @<Template>
+                <div>
+                    @originNode
+                    <Divider Style="margin: 4px 0"></Divider>
+                    <div style="display: flex; flex-wrap: nowrap; padding: 8px">
+                        <Input Style="flex: auto" @bind-Value="@_name"/>
+                        <a style="flex: none; padding: 8px; display: block; cursor: pointer" @onclick="AddCommandItem">
+                            <Icon Type="plus" Theme="outline"></Icon>
+                            Add
+                        </a>
+                    </div>
+                </div>
+            </Template>;
+
+        return customDropdownRender;
+    }
+
+
+
+    private void HandleInfo()
+    {
+        RenderFragment content =@<div>
+                <p>@NowStatus.InitialSengingCommand</p>
+            </div>;
+        _modalService.Info(new ConfirmOptions()
+        {
+            Title = "Initial command to be sent",
+            Content = content
+        });
+    }
+
+}
