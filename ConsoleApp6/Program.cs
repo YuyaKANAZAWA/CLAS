@@ -67,11 +67,11 @@ foreach (var d in SbfDatas)
 
 ClasMessage2L6file(clasMessages);
 
-var ssr = new ClasSSR();
-foreach (var cm in clasMessages)
-{
-    ssr.AddClasMessage(cm);
-}
+//var ssr = new ClasSSR();
+//foreach (var cm in clasMessages)
+//{
+//    ssr.AddClasMessage(cm);
+//}
 
 
 foreach (var d in SbfDatas)
